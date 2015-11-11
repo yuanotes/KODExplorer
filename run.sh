@@ -9,14 +9,18 @@ else
 fi
 
 if [ -d "$KOD_SYSTEM_PATH" ] ; then
+    chown www-data:www-data "$KOD_SYSTEM_PATH" -R
     if [ ! "$(ls -A $KOD_SYSTEM_PATH)" ]; then
+        su www-data
         cp /app/data/system/* "$KOD_SYSTEM_PATH/"
         echo "Copy system files."
     fi
 fi
 
 if [ -d "$KOD_USER_PATH" ] ; then
+    chown www-data:www-data "$KOD_USER_PATH" -R
     if [ ! "$(ls -A $KOD_USER_PATH)" ]; then
+        su www-data
         cp /app/data/User/* "$KOD_USER_PATH/"
         echo "Copy user files."
     fi
