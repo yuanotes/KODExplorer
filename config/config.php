@@ -45,8 +45,12 @@ define('CLASS_DIR',		LIB_DIR .'class/');			//内目录
 define('CORER_DIR',		LIB_DIR .'core/');			//核心目录
 define('DATA_PATH',     BASIC_PATH .'data/');       //用户数据目录
 define('LOG_PATH',      DATA_PATH .'log/');         //日志目录
-if ($_ENV["KOD_SYSTEM_PATH"]){
-    define('USER_SYSTEM',   $_ENV["KOD_SYSTEM_PATH"]);      //用户数据存储目录
+
+if ($E_SYS_PATH = getenv("KOD_SYSTEM_PATH")){
+    if (substr($E_SYS_PATH, -1) !== "/") {
+        $E_SYS_PATH = $E_SYS_PATH . "/";
+    }
+    define('USER_SYSTEM',   $E_SYS_PATH);      //用户数据存储目录
 } else {
     define('USER_SYSTEM',   DATA_PATH .'system/');      //用户数据存储目录
 }
@@ -62,11 +66,14 @@ define('STATIC_PATH',"./static/");//静态文件目录
  可以自定义【用户目录】和【公共目录】;移到web目录之外，
  可以使程序更安全, 就不用限制用户的扩展名权限了;
  */
- if ($_ENV["KOD_USER_PATH"]){
-     define('USER_PATH',     $_ENV["KOD_USER_PATH"]);        //用户目录
- } else {
-     define('USER_PATH',     DATA_PATH .'User/');        //用户目录
- }
+if ($E_USER_PATH = getenv("KOD_USER_PATH")){
+    if (substr($E_USER_PATH, -1) !== "/") {
+        $E_USER_PATH = $E_USER_PATH . "/";
+    }
+    define('USER_PATH',     $E_USER_PATH);        //用户目录
+} else {
+    define('USER_PATH',     DATA_PATH .'User/');        //用户目录
+}
 //自定义用户目录；需要先将data/User移到别的地方 再修改配置，例如：
 //define('USER_PATH',   DATA_PATH .'/Library/WebServer/Documents/User');
 define('PUBLIC_PATH',   DATA_PATH .'public/');     //公共目录
